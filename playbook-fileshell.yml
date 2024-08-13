@@ -5,11 +5,11 @@
   connection: ansible.builtin.ssh
 
   tasks:
-   - name: make a directory
-     ansible.builtin.file:
-       path: ~/output/
-       state: directory
+    - name: Get home directory path
+      set_fact:
+        home_directory: "{{ ansible_env.HOME }}"
 
-   - name: use shell module with wildcarding
-     ansible.builtin.shell: echo $HOME >> ~/output/path.txt
-
+    - name: Write home directory path to a file
+      copy:
+        content: "{{ home_directory }}"
+        dest: ~/output/path3.txt
