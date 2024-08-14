@@ -1,0 +1,22 @@
+---
+- name: Create users for the wednesday list
+  hosts: planetexpress
+  become: yes
+  vars_files:
+    - ~/mycode/vars/wed_challenge_names.yml
+  tasks:
+    - name: Create users from the wednesday list
+      user:
+        name: "{{ item }}"
+        state: present
+      with_items: "{{ wednesday }}"
+
+    - name: Install figlet on Debian-based systems
+      apt:
+        name: figlet
+        state: present
+      when: ansible_os_family == "Debian"    
+
+    - name: Display completion message
+      debug:
+        msg: "I've completed the challenge!"
