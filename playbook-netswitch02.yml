@@ -1,0 +1,15 @@
+- name: My Arista Playbook
+  hosts: switches
+  gather_facts: false
+
+  vars_files:
+    - ~/switch.creds
+
+  tasks:
+  - name: configure the login banner
+    eos_banner:
+      banner: login
+      text: |
+        Ready Player One!
+      state: "{{ herethere }}"
+
